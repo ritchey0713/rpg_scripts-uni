@@ -20,6 +20,8 @@ public class CharStats : MonoBehaviour {
 	public int currentMP;
 	public int maxMP = 30;
 
+	public int[] mpLevelBonus;
+
 	public int strength;
 	public int defense;
 	public int wpnPwr;
@@ -31,6 +33,9 @@ public class CharStats : MonoBehaviour {
 	void Start() {
 		expToNextLevel = new int [maxLevel];
 		expToNextLevel[1] = baseExp;
+
+		mpLevelBonus = new int [maxLevel];
+		populateMpBonus();
 
 		// start level checker at 2 because players start at level 1 -> could change this later
 		for (int i = 2; i < expToNextLevel.Length; i++) {
@@ -69,6 +74,20 @@ public class CharStats : MonoBehaviour {
 			
 			maxHP = Mathf.FloorToInt(maxHP * 1.05f);
 			currentHP = maxHP;
+
+			maxMP += mpLevelBonus[playerLevel];
+			currentMP = maxMP;
+		}
+	}
+
+	private void populateMpBonus(){
+		int basicBonus = 5;
+		for (int i = 2; i < mpLevelBonus.Length; i++) {
+			if(i % 3 == 0){
+				mpLevelBonus[i] = basicBonus;
+				basicBonus += playerLevel + 3;
+			}
+			
 		}
 	}
 }
