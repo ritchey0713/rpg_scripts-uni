@@ -6,8 +6,10 @@ using UnityEngine.UI;
 public class DialogManager : MonoBehaviour {
 	public Text dialogText;
 	public Text nameText;
+	public Text signText;
 	public GameObject dialogBox;
 	public GameObject nameBox;
+	public GameObject signBox;
 
 	// creating string array
 	public string[] dialogLines; 
@@ -27,13 +29,15 @@ public class DialogManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-			if(dialogBox.activeInHierarchy){
+			if(dialogBox.activeInHierarchy || signBox.activeInHierarchy){
 				if(Input.GetButtonUp("Fire1")){
 					// check if first line -> had an issue where because first line pops up on press down, this fires on release "skipping" the fiorst line
 					if(!justStarted){
 						currentLine++;
 						if(currentLine >= dialogLines.Length){
 							dialogBox.SetActive(false);
+							signBox.SetActive(false);
+							nameText.text = "";
 							PlayerController.instance.canMove = true;
 						} else {
 							CheckIfName();
@@ -46,18 +50,31 @@ public class DialogManager : MonoBehaviour {
 			}
     }
 
-		public void ShowDialog(string[] newLines){
+		public void ShowDialog(string[] newLines, bool isPerson){
 			// activator sets the lines in unity, this takes care of only displaying them redundant but allows you to carry only one dialog manager in a scene
 			dialogLines = newLines;
 
 			currentLine = 0;
-
-			CheckIfName();
-
-			dialogText.text = dialogLines[currentLine];
-			dialogBox.SetActive(true);
-			justStarted = true; 
+			
 			PlayerController.instance.canMove = false;
+
+			if(isPerson){
+				CheckIfName();
+
+				dialogText.text = dialogLines[currentLine];
+				dialogBox.SetActive(true);
+				justStarted = true; 
+
+			} else {
+				signText.text = dialogLines[currentLine];
+				signBox.SetActive(true);
+				justStarted = true; 
+			}
+
+
+			// nameBox.SetActive(isPerson);
+			
+
 		}
 
 	public void CheckIfName(){
