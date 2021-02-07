@@ -57,26 +57,32 @@ public class CharStats : MonoBehaviour {
 		currentExp += expToAdd;
 		// this is why we start adding exp to the exp arr at index 2 the player level in the array will always refer to the exp for a level up 
 		// i.e. level = 10 => expToNextLevel[10] refers to becoming level 11
-		if(playerLevel < 100 && currentExp >= expToNextLevel[playerLevel]) {
+		if(playerLevel < maxLevel){ 
+			if(currentExp >= expToNextLevel[playerLevel]) {
 			// reset the exp to whatever addition exp they have on top of having enough to level up 
-			currentExp -= expToNextLevel[playerLevel];
+				currentExp -= expToNextLevel[playerLevel];
 
-			playerLevel++;
+				playerLevel++;
 
-			//determine what stats to increase
-			// use odds and evens for strength and defense FOR NOW
-			if(playerLevel % 2 == 0){
-				strength++;
-			} else {
-				defense++;
+				//determine what stats to increase
+				// use odds and evens for strength and defense FOR NOW
+				if(playerLevel % 2 == 0){
+					strength++;
+				} else {
+					defense++;
+				}
+				
+				
+				maxHP = Mathf.FloorToInt(maxHP * 1.05f);
+				currentHP = maxHP;
+
+				maxMP += mpLevelBonus[playerLevel];
+				currentMP = maxMP;
 			}
-			
-			
-			maxHP = Mathf.FloorToInt(maxHP * 1.05f);
-			currentHP = maxHP;
-
-			maxMP += mpLevelBonus[playerLevel];
-			currentMP = maxMP;
+		}
+		
+		if(playerLevel >= maxLevel){
+			currentExp = 0;
 		}
 	}
 
