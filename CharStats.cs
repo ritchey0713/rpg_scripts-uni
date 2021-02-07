@@ -41,6 +41,33 @@ public class CharStats : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update() {
+		
+		// testing
+		if(Input.GetKey(KeyCode.K)){
+			addExp(15000);
+		}
+	}
+
+	public void addExp(int expToAdd) {
+		currentExp += expToAdd;
+		// this is why we start adding exp to the exp arr at index 2 the player level in the array will always refer to the exp for a level up 
+		// i.e. level = 10 => expToNextLevel[10] refers to becoming level 11
+		if(playerLevel < 100 && currentExp >= expToNextLevel[playerLevel]) {
+			// reset the exp to whatever addition exp they have on top of having enough to level up 
+			currentExp -= expToNextLevel[playerLevel];
+
+			playerLevel++;
+
+			//determine what stats to increase
+			// use odds and evens for strength and defense FOR NOW
+			if(playerLevel % 2 == 0){
+				strength++;
+			} else {
+				defense++;
+			}
 			
+			// need to add the extra hp to current hp on level up as well.
+			maxHP = Mathf.FloorToInt(maxHP * 1.05f);
+		}
 	}
 }
