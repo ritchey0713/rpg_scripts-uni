@@ -49,7 +49,7 @@ public class CharStats : MonoBehaviour {
 		
 		// testing
 		if(Input.GetKey(KeyCode.K)){
-			addExp(15000);
+			addExp(500);
 		}
 	}
 
@@ -64,22 +64,14 @@ public class CharStats : MonoBehaviour {
 
 				playerLevel++;
 
+				IncreaseStats(playerLevel);
 				//determine what stats to increase
 				// use odds and evens for strength and defense FOR NOW
-				if(playerLevel % 2 == 0){
-					strength++;
-				} else {
-					defense++;
-				}
 				
-				
-				maxHP = Mathf.FloorToInt(maxHP * 1.05f);
-				currentHP = maxHP;
-
-				maxMP += mpLevelBonus[playerLevel];
-				currentMP = maxMP;
 			}
-		} else {
+		} 
+		
+		if(playerLevel >= maxLevel) {
 			currentExp = 0;
 		}
 	}
@@ -93,5 +85,20 @@ public class CharStats : MonoBehaviour {
 			}
 			
 		}
+	}
+
+	private void IncreaseStats(int playerLevel) {
+		if(playerLevel < maxLevel){
+			if(playerLevel % 2 == 0){
+						strength++;
+					} else {
+						defense++;
+					}
+			maxHP = Mathf.FloorToInt(maxHP * 1.05f);
+			currentHP = maxHP;
+			Debug.Log(playerLevel);
+			maxMP += mpLevelBonus[playerLevel];
+			currentMP = maxMP;
+		} 
 	}
 }
