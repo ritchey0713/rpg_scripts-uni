@@ -79,9 +79,7 @@ public class CharStats : MonoBehaviour {
 				maxMP += mpLevelBonus[playerLevel];
 				currentMP = maxMP;
 			}
-		}
-		
-		if(playerLevel >= maxLevel){
+		} else {
 			currentExp = 0;
 		}
 	}
