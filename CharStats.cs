@@ -66,8 +66,9 @@ public class CharStats : MonoBehaviour {
 				defense++;
 			}
 			
-			// need to add the extra hp to current hp on level up as well.
+			
 			maxHP = Mathf.FloorToInt(maxHP * 1.05f);
+			currentHP = maxHP;
 		}
 	}
 }
