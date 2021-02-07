@@ -1,9 +1,12 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UIFade : MonoBehaviour {
+
+	//make sure the ui canvas is hidden in each scene the the essentials loader will create a clone that works fine, keeping the original in the scene is only for testing and seeing ui while not running
 	
 	public static UIFade instance;
 	
@@ -11,8 +14,8 @@ public class UIFade : MonoBehaviour {
 
 	public float fadeSpeed;
 
-	public bool shouldFadeToBlack;
-	public bool shouldFadeFromBlack;
+	private bool shouldFadeToBlack;
+	private bool shouldFadeFromBlack;
 	// Start is called before the first frame update
 	void Start() {
 		instance = this;
