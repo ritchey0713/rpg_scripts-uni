@@ -40,17 +40,19 @@ public class PlayerController : MonoBehaviour {
 
     if(canMove){
       theRB.velocity = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")) * moveSpeed;
-
-      myAnim.SetFloat("moveX", theRB.velocity.x);
-      myAnim.SetFloat("moveY", theRB.velocity.y);
-
     } else {
       theRB.velocity = Vector2.zero;
     }
 
+      myAnim.SetFloat("moveX", theRB.velocity.x);
+      myAnim.SetFloat("moveY", theRB.velocity.y);
+
     if(Input.GetAxisRaw("Horizontal") == 1 || Input.GetAxisRaw("Horizontal") == -1 || Input.GetAxisRaw("Vertical") == 1 || Input.GetAxisRaw("Vertical") == -1) {
-      myAnim.SetFloat("lastMoveX", Input.GetAxisRaw("Horizontal"));
-      myAnim.SetFloat("lastMoveY", Input.GetAxisRaw("Vertical"));
+      if(canMove){
+        myAnim.SetFloat("lastMoveX", Input.GetAxisRaw("Horizontal"));
+        myAnim.SetFloat("lastMoveY", Input.GetAxisRaw("Vertical"));
+
+      }
     }
 
     // keep the player keep inside bounds
