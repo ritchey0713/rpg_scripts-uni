@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour {
 
 	public static GameManager instance;
 
+	public bool gameMenuOpen, dialogActive, fadingBetweenAreas;
+
 	public CharStats[] playerStats;
 	void Start() {
 		if(instance == null){
