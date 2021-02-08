@@ -9,7 +9,7 @@ public class EssentialsLoader : MonoBehaviour {
 	public GameObject player;
 	public GameObject gameMan;
 	// Start is called before the first frame update
-	void Start() {
+	void Awake() {
 		if(UIFade.instance == null) {
 			// called this way as we need to instantiate the fade since the area entrance calls it
 			UIFade.instance = Instantiate(UIScreen).GetComponent<UIFade>();

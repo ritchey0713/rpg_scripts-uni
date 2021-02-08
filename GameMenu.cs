@@ -5,6 +5,8 @@ using UnityEngine;
 public class GameMenu : MonoBehaviour {
 
 	public GameObject theMenu;
+
+	private CharStats[] playerStats;
 	// Start is called before the first frame update
 	void Start() {
 		
@@ -22,5 +24,9 @@ public class GameMenu : MonoBehaviour {
 				GameManager.instance.gameMenuOpen = true;
 			}
 		}	
+	}
+
+	public void UpdateMainStats(){
+		
 	}
 }
