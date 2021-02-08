@@ -38,7 +38,8 @@ public class DialogManager : MonoBehaviour {
 							dialogBox.SetActive(false);
 							signBox.SetActive(false);
 							nameText.text = "";
-							PlayerController.instance.canMove = true;
+							//PlayerController.instance.canMove = true;
+							GameManager.instance.dialogActive = false;
 						} else {
 							CheckIfName();
 							dialogText.text = dialogLines[currentLine];
@@ -56,7 +57,8 @@ public class DialogManager : MonoBehaviour {
 
 			currentLine = 0;
 			
-			PlayerController.instance.canMove = false;
+			// PlayerController.instance.canMove = false;
+			GameManager.instance.dialogActive = true;
 
 			if(isPerson){
 				CheckIfName();
