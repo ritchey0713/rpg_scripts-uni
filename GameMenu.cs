@@ -68,6 +68,8 @@ public class GameMenu : MonoBehaviour {
 	}
 
 	public void ToggleWindow(int windowNumber){
+		UpdateMainStats();
+
 		for(int i = 0; i < windows.Length; i++){
 			if(i == windowNumber){
 				windows[i].SetActive(!windows[i].activeInHierarchy);
@@ -92,7 +94,12 @@ public class GameMenu : MonoBehaviour {
 		//update info that is gonna show up 
 		for(int i = 0; i < statusButtons.Length; i++){
 			statusButtons[i].SetActive(playerStats[i].gameObject.activeInHierarchy);		
+			statusButtons[i].GetComponentInChildren<Text>().text = playerStats[i].charName;
 		}
+
+	}
+
+	public void statusChar(int selected){
 
 	}
 
