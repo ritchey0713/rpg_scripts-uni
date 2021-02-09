@@ -19,6 +19,8 @@ public class GameMenu : MonoBehaviour {
 	public Image[] charImage; 
 
 	public GameObject[] charStatHolder;
+
+	public GameObject[] statusButtons;
 	// Start is called before the first frame update
 	void Start() {
 		
@@ -29,8 +31,7 @@ public class GameMenu : MonoBehaviour {
 		if(Input.GetButtonDown("Fire2"))
 			if(theMenu.activeInHierarchy){
 
-				theMenu.SetActive(false);
-				GameManager.instance.gameMenuOpen = false;
+				CloseMenu();
 
 			} else {
 
@@ -67,7 +68,6 @@ public class GameMenu : MonoBehaviour {
 	}
 
 	public void ToggleWindow(int windowNumber){
-		Debug.Log("test");
 		for(int i = 0; i < windows.Length; i++){
 			if(i == windowNumber){
 				windows[i].SetActive(!windows[i].activeInHierarchy);
@@ -75,6 +75,25 @@ public class GameMenu : MonoBehaviour {
 				windows[i].SetActive(false);
 			}
 		}
+	}
+
+	public void CloseMenu(){
+		for(int i = 0; i < windows.Length; i++){
+			windows[i].SetActive(false);
+		}
+
+		theMenu.SetActive(false);
+
+		GameManager.instance.gameMenuOpen = false;
+	}
+
+	public void OpenStatus(){
+		UpdateMainStats();
+		//update info that is gonna show up 
+		for(int i = 0; i < statusButtons.Length; i++){
+			statusButtons[i].SetActive(playerStats[i].gameObject.activeInHierarchy);		
+		}
+
 	}
 
 }
