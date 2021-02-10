@@ -9,10 +9,12 @@ public class GameManager : MonoBehaviour {
 
 	public bool gameMenuOpen, dialogActive, fadingBetweenAreas;
 
+	// name of item
 	public string[] itemsHeld;
-
+	// how many held, (must match the element of the name from itemsHeld)
 	public int[] numberOfItems;
 
+	// ref to all items => prefab objects added here
 	public Item[] referenceItems;
 
 	public CharStats[] playerStats;
