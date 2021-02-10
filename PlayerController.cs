@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour {
 
   public string areaTransitionName;
 
+  private Vector2 moveDirection;
+
   private Vector3 bottomLeftLimit;
 
   private Vector3 topRightLimit;
@@ -35,11 +37,23 @@ public class PlayerController : MonoBehaviour {
     DontDestroyOnLoad(gameObject);
   }
 
+  void ProcessInputs(){
+    float moveX = Input.GetAxisRaw("Horizontal");
+
+    float moveY = Input.GetAxisRaw("Vertical");
+
+    moveDirection = new Vector2(moveX, moveY).normalized;
+  }
+
+  void Move(){
+    theRB.velocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y * moveSpeed);
+  }
+
   // Update is called once per frame
   void Update() {
-
     if(canMove){
-      theRB.velocity = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")) * moveSpeed;
+      ProcessInputs();
+      Move();
     } else {
       theRB.velocity = Vector2.zero;
     }
@@ -58,6 +72,10 @@ public class PlayerController : MonoBehaviour {
     // keep the player keep inside bounds
 		transform.position = new Vector3(Mathf.Clamp(transform.position.x, bottomLeftLimit.x, topRightLimit.x), Mathf.Clamp(transform.position.y, bottomLeftLimit.y, topRightLimit.y), transform.position.z);
 
+  }
+
+  private void FixedUpdate() {
+    Move();
   }
 
   public void SetBounds(Vector3 botLeft, Vector3 topRight) {
