@@ -44,4 +44,26 @@ public class GameManager : MonoBehaviour {
 
 		return null;
 	}
+
+	public void SortItems() {
+		bool itemAfterSpace = true;
+		while(itemAfterSpace){
+			itemAfterSpace = false;
+			for(int i = 0; i < itemsHeld.Length - 1; i++){
+				if(itemsHeld[i] == ""){
+					// if the item button im looking at is empty i wanna assign it to what was in the next button to "move" that item forward
+					itemsHeld[i] = itemsHeld[i + 1];
+					itemsHeld[i + 1] = "";
+// if the item button im looking at is empty i wanna assign it to what was in the next button to "move" that item forward
+					numberOfItems[i] = numberOfItems[i + 1];
+					numberOfItems[i + 1] = 0;
+
+					// if itemHeld != "" that means we moved an item, and need to execute the loop one more time, if the itemHeld is an "" then that means we have already sorted everything
+					if(itemsHeld[i] != ""){
+						itemAfterSpace = true;
+					}
+				}
+			}
+		}
+	}
 }
