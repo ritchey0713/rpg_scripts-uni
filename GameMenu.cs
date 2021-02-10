@@ -24,6 +24,8 @@ public class GameMenu : MonoBehaviour {
 
 	public Text statusName, statusHP, statusMP, statusStr, statusDef, statusWpnEqpd, statusWpnPwr, statusArmrEqpd, statusArmrPwr, statusExp;
 
+	public ItemButton[] itemButtons;
+
 	public Image statusImage;
 	// Start is called before the first frame update
 	void Start() {
@@ -123,6 +125,24 @@ public class GameMenu : MonoBehaviour {
 
 		statusImage.sprite = playerStats[selected].charImage;
 
+	}
+
+	public void ShowItems() {
+		for(int i = 0; i < itemButtons.Length; i++){
+			itemButtons[i].buttonValue = i;
+
+			if(GameManager.instance.itemsHeld[i] != ""){
+				//show button
+				itemButtons[i].buttonImage.gameObject.SetActive(true);
+				// access gamemanager => it tracks the items held and a ref to all items that we add to the game and the number of how many we have of each item
+				itemButtons[i].buttonImage.sprite = GameManager.instance.GetItemDetails(GameManager.instance.itemsHeld[i]).itemSprite;
+				itemButtons[i].amountText.text = GameManager.instance.numberOfItems[i].ToString();
+			} else {
+				// hide the button
+				itemButtons[i].buttonImage.gameObject.SetActive(false);
+				itemButtons[i].amountText.text = "";
+			}
+		}
 	}
 
 }
