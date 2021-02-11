@@ -11,7 +11,7 @@ public class CharStats : MonoBehaviour {
 
 	public int[] expToNextLevel;
 
-	public int maxLevel = 100;
+	public int maxLevel = 10;
 
 	public int baseExp = 1000;
 

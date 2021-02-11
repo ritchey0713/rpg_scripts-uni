@@ -70,7 +70,7 @@ public class GameMenu : MonoBehaviour {
 				hpText[i].text = "HP: " + playerStats[i].currentHP + "/" + playerStats[i].maxHP;
 				mpText[i].text = "MP: " + playerStats[i].currentMP + "/" + playerStats[i].maxMP;
 				lvlText[i].text = "Lvl: " + playerStats[i].playerLevel;
-				expText[i].text = "" + playerStats[i].currentExp + "/" + playerStats[i].expToNextLevel[playerStats[i].playerLevel];
+				expText[i].text = playerStats[i].playerLevel >= playerStats[i].maxLevel ?   "0/0" : "" + playerStats[i].currentExp + "/" + playerStats[i].expToNextLevel[playerStats[i].playerLevel + 1];
 				expSlider[i].maxValue = playerStats[i].expToNextLevel[playerStats[i].playerLevel];
 				expSlider[i].value = playerStats[i].currentExp;
 				charImage[i].sprite = playerStats[i].charImage;

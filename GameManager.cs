@@ -35,6 +35,11 @@ public class GameManager : MonoBehaviour {
 			} else {
 					PlayerController.instance.canMove = true;
 			}
+
+			if(Input.GetKeyDown(KeyCode.J)){
+				AddItem("Iron Armor");
+				AddItem("blublah");
+			}
 	}
 
 	public Item GetItemDetails(string itemToGrab) {
@@ -71,6 +76,44 @@ public class GameManager : MonoBehaviour {
 
 		itemsHeld = sortedItemNames.ToArray();
 		numberOfItems = sortedItemQuantities.ToArray();
+	}
+
+	public void AddItem(string itemToAdd){
+		int newItemPosition = 0; 
+		bool foundSpace = false;
+		bool itemExists = false;
+
+		for(int i = 0; i < itemsHeld.Length; i++){
+			if(itemsHeld[i] == "" || itemsHeld[i] == itemToAdd){
+				newItemPosition = i;
+				foundSpace = true;
+				break;
+			}
+		}
+
+		if(foundSpace){
+			for(int i = 0; i < referenceItems.Length; i++){
+				if(referenceItems[i].itemName == itemToAdd){
+					itemExists = true;
+					break; 
+				}
+			}
+		}
+
+		if(itemExists){
+			itemsHeld[newItemPosition] = itemToAdd;
+			numberOfItems[newItemPosition]++;
+		} else {
+			Debug.LogError("ITEM WAS NOT FOUND: " + itemToAdd);
+		}
+
+		GameMenu.instance.ShowItems();
+
+
+	}
+
+	public void RemoveItem(string itemToRemove){
+
 	}
 
 
