@@ -39,6 +39,8 @@ public class GameManager : MonoBehaviour {
 			if(Input.GetKeyDown(KeyCode.J)){
 				AddItem("Iron Armor");
 				AddItem("blublah");
+
+				RemoveItem("Health Potion");
 			}
 	}
 
@@ -113,7 +115,27 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void RemoveItem(string itemToRemove){
+		bool foundItem = false;
+		int itemPosition = 0; 
 
+		for(int i = 0; i < itemsHeld.Length; i++){
+			if(itemsHeld[i] == itemToRemove){
+				foundItem = true; 
+				itemPosition = i; 
+				break;
+			}
+		}
+
+		if(foundItem){
+			numberOfItems[itemPosition]--;
+
+			if(numberOfItems[itemPosition] <= 0) {
+				itemsHeld[itemPosition] = "";
+			}
+			GameMenu.instance.ShowItems();
+		} else {
+			Debug.LogError("COULDNT FIND: " + itemToRemove);
+		}
 	}
 
 
