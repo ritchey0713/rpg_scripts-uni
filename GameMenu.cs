@@ -27,9 +27,14 @@ public class GameMenu : MonoBehaviour {
 	public ItemButton[] itemButtons;
 
 	public Image statusImage;
+
+	public string selectedItem; 
+	public Item activeItem;
+
+	public GameMenu instance; 
 	// Start is called before the first frame update
 	void Start() {
-		
+		instance = this;
 	}
 
 	// Update is called once per frame
@@ -130,8 +135,8 @@ public class GameMenu : MonoBehaviour {
 	public void ShowItems() {
 		GameManager.instance.SortItems();
 		for(int i = 0; i < itemButtons.Length; i++){
+			Debug.Log(GameManager.instance.itemsHeld.Length);
 			itemButtons[i].buttonValue = i;
-
 			if(GameManager.instance.itemsHeld[i] != ""){
 				//show button
 				itemButtons[i].buttonImage.gameObject.SetActive(true);

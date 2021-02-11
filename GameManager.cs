@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -44,26 +45,31 @@ public class GameManager : MonoBehaviour {
 
 		return null;
 	}
-
+	
 	public void SortItems() {
-		bool itemAfterSpace = true;
-		while(itemAfterSpace){
-			itemAfterSpace = false;
-			for(int i = 0; i < itemsHeld.Length - 1; i++){
-				if(itemsHeld[i] == ""){
-					// if the item button im looking at is empty i wanna assign it to what was in the next button to "move" that item forward
-					itemsHeld[i] = itemsHeld[i + 1];
-					itemsHeld[i + 1] = "";
-// if the item button im looking at is empty i wanna assign it to what was in the next button to "move" that item forward
-					numberOfItems[i] = numberOfItems[i + 1];
-					numberOfItems[i + 1] = 0;
+		 List<string> sortedItemNames = new List<string>();
+		 List<int> sortedItemQuantities = new List<int>();
 
-					// if itemHeld != "" that means we moved an item, and need to execute the loop one more time, if the itemHeld is an "" then that means we have already sorted everything
-					if(itemsHeld[i] != ""){
-						itemAfterSpace = true;
-					}
-				}
+		 List<string> emptyItemNames = new List<string>();
+		 List<int> emptyItemQuantities = new List<int>();
+
+		for(int i = 0; i < itemsHeld.Length; i++){
+			if(itemsHeld[i] != ""){
+				sortedItemNames.Add(itemsHeld[i]);
+				sortedItemQuantities.Add(numberOfItems[i]);
+			} 
+
+			if(itemsHeld[i] == ""){
+				emptyItemNames.Add("");
+				emptyItemQuantities.Add(0);
 			}
+
 		}
+		sortedItemNames.AddRange(emptyItemNames);
+		sortedItemQuantities.AddRange(emptyItemQuantities);
+
+		itemsHeld = sortedItemNames.ToArray();
+		numberOfItems = sortedItemQuantities.ToArray();
 	}
-}
+
+} // end class
