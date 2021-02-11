@@ -31,7 +31,9 @@ public class GameMenu : MonoBehaviour {
 	public string selectedItem; 
 	public Item activeItem;
 
-	public GameMenu instance; 
+	public Text itemName, itemDescription, useButtonText;
+
+	public static GameMenu instance; 
 	// Start is called before the first frame update
 	void Start() {
 		instance = this;
@@ -135,7 +137,6 @@ public class GameMenu : MonoBehaviour {
 	public void ShowItems() {
 		GameManager.instance.SortItems();
 		for(int i = 0; i < itemButtons.Length; i++){
-			Debug.Log(GameManager.instance.itemsHeld.Length);
 			itemButtons[i].buttonValue = i;
 			if(GameManager.instance.itemsHeld[i] != ""){
 				//show button
@@ -149,6 +150,21 @@ public class GameMenu : MonoBehaviour {
 				itemButtons[i].amountText.text = "";
 			}
 		}
+	}
+
+	public void SelectItem(Item pressedItem){
+		activeItem = pressedItem;
+
+		if(activeItem.isItem){
+			useButtonText.text = "Use";
+		}
+
+		if(activeItem.isWeapon || activeItem.isArmor) {
+			useButtonText.text = "Equip";
+		}
+
+		itemName.text = activeItem.itemName;
+		itemDescription.text = activeItem.description;
 	}
 
 }

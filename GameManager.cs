@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -71,5 +72,7 @@ public class GameManager : MonoBehaviour {
 		itemsHeld = sortedItemNames.ToArray();
 		numberOfItems = sortedItemQuantities.ToArray();
 	}
+
+
 
 } // end class
