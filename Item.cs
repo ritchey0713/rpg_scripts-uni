@@ -32,4 +32,44 @@ public class Item : MonoBehaviour {
 	void Update() {
 			
 	}
+
+	public void Use(int charToUseOn){
+		// gives us a char obj to access
+		CharStats selectedChar = GameManager.instance.playerStats[charToUseOn];
+
+		if(isItem){
+			if(affectHP){
+				selectedChar.currentHP = amountToChange;
+
+				if(selectedChar.currentHP > selectedChar.maxHP){
+					selectedChar.currentHP = selectedChar.maxHP;
+				}
+			}
+
+			if(affectMP){
+				selectedChar.currentMP = amountToChange;
+
+				if(selectedChar.currentMP > selectedChar.maxMP){
+					selectedChar.currentMP = selectedChar.maxMP;
+				}
+			}
+
+			if(affectStr){
+				selectedChar.strength = amountToChange;
+			}
+
+				if(affectDef){
+				selectedChar.defense = amountToChange;
+			}
+		}
+
+		if(isWeapon){
+			if(selectedChar.equippedWeapon != ""){
+				GameManager.instance.AddItem(selectedChar.equippedWeapon);
+
+				selectedChar.equippedWeapon = itemName;
+				selectedChar.wpnPwr = weaponStr;
+			}
+		}
+	}
 }

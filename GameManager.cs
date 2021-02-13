@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour {
 	public Item[] referenceItems;
 
 	public CharStats[] playerStats;
+	
 	void Start() {
 		if(instance == null){
 			instance = this;
