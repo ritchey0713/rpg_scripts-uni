@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour {
 	public Item[] referenceItems;
 
 	public CharStats[] playerStats;
-	
+
 	void Start() {
 		if(instance == null){
 			instance = this;
@@ -107,7 +107,7 @@ public class GameManager : MonoBehaviour {
 			itemsHeld[newItemPosition] = itemToAdd;
 			numberOfItems[newItemPosition]++;
 		} else {
-			Debug.LogError("ITEM WAS NOT FOUND: " + itemToAdd);
+			Debug.LogError("ITEM WAS NOT FOUND TO ADD: " + itemToAdd);
 		}
 
 		GameMenu.instance.ShowItems();
@@ -135,7 +135,7 @@ public class GameManager : MonoBehaviour {
 			}
 			GameMenu.instance.ShowItems();
 		} else {
-			Debug.LogError("COULDNT FIND: " + itemToRemove);
+			Debug.LogError("COULDNT FIND ITEM TO REMOVE: " + itemToRemove);
 		}
 	}
 

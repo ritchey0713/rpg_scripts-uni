@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -36,6 +37,7 @@ public class Item : MonoBehaviour {
 	public void Use(int charToUseOn){
 		// gives us a char obj to access
 		CharStats selectedChar = GameManager.instance.playerStats[charToUseOn];
+		Debug.Log(selectedChar.equippedWeapon);
 
 		if(isItem){
 			if(affectHP){
@@ -64,12 +66,22 @@ public class Item : MonoBehaviour {
 		}
 
 		if(isWeapon){
-			if(selectedChar.equippedWeapon != ""){
+			if(selectedChar.equippedWeapon != "N/A"){
 				GameManager.instance.AddItem(selectedChar.equippedWeapon);
 
 				selectedChar.equippedWeapon = itemName;
 				selectedChar.wpnPwr = weaponStr;
 			}
 		}
+
+		if(isArmor){
+			if(selectedChar.equippedWeapon != "N/A"){
+				GameManager.instance.AddItem(selectedChar.equippedArmor);
+
+				selectedChar.equippedArmor = itemName;
+				selectedChar.armrPwr = armorStr;
+			}
+		}
+			GameManager.instance.RemoveItem(itemName);
 	}
 }

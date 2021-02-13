@@ -75,7 +75,7 @@ public class GameMenu : MonoBehaviour {
 				mpText[i].text = "MP: " + playerStats[i].currentMP + "/" + playerStats[i].maxMP;
 				lvlText[i].text = "Lvl: " + playerStats[i].playerLevel;
 				expText[i].text = playerStats[i].playerLevel >= playerStats[i].maxLevel ?   "0/0" : "" + playerStats[i].currentExp + "/" + playerStats[i].expToNextLevel[playerStats[i].playerLevel + 1];
-				expSlider[i].maxValue = playerStats[i].expToNextLevel[playerStats[i].playerLevel];
+				expSlider[i].maxValue = playerStats[i].playerLevel >= playerStats[i].maxLevel ?  0 : playerStats[i].expToNextLevel[playerStats[i].playerLevel];
 				expSlider[i].value = playerStats[i].currentExp;
 				charImage[i].sprite = playerStats[i].charImage;
 			} else {
@@ -129,15 +129,15 @@ public class GameMenu : MonoBehaviour {
 		statusMP.text = "" + playerStats[selected].currentMP + "/" + playerStats[selected].maxMP;
 		statusStr.text = playerStats[selected].strength.ToString();
 		statusDef.text = playerStats[selected].defense.ToString();
-		if(playerStats[selected].equippedWeapon != "") {
+		if(playerStats[selected].equippedWeapon != "N/A") {
 			statusWpnEqpd.text = playerStats[selected].equippedWeapon;
 		}
 		statusWpnPwr.text = playerStats[selected].wpnPwr.ToString();
-		if(playerStats[selected].equippedArmor != "") {
+		if(playerStats[selected].equippedArmor != "N/A") {
 			statusArmrEqpd.text = playerStats[selected].equippedArmor;
 		}
 		statusArmrPwr.text = playerStats[selected].armrPwr.ToString();
-		statusExp.text = (playerStats[selected].expToNextLevel[playerStats[selected].playerLevel] - playerStats[selected].currentExp).ToString();
+		statusExp.text = playerStats[selected].playerLevel >= playerStats[selected].maxLevel ? "0" : (playerStats[selected].expToNextLevel[playerStats[selected].playerLevel] - playerStats[selected].currentExp).ToString();
 
 		statusImage.sprite = playerStats[selected].charImage;
 
@@ -196,6 +196,11 @@ public class GameMenu : MonoBehaviour {
 	public void CloseItemCharChoice(){
 		itemCharChoiceMenu.SetActive(false);
 
+	}
+
+	public void UseItem(int selectedChar){
+		activeItem.Use(selectedChar);
+		CloseItemCharChoice();
 	}
 
 }
