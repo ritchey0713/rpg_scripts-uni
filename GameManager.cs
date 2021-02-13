@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour {
 
 	public CharStats[] playerStats;
 
+	public int currentGold;
+
 	void Start() {
 		if(instance == null){
 			instance = this;
