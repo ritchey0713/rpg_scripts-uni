@@ -74,9 +74,9 @@ public class PlayerController : MonoBehaviour {
 
   }
 
-  private void FixedUpdate() {
-    Move();
-  }
+  // private void FixedUpdate() {
+  //   Move();
+  // }
 
   public void SetBounds(Vector3 botLeft, Vector3 topRight) {
     bottomLeftLimit = botLeft + new Vector3(.4f, .4f, 0f);

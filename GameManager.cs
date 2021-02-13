@@ -24,6 +24,8 @@ public class GameManager : MonoBehaviour {
 	void Start() {
 		if(instance == null){
 			instance = this;
+
+			SortItems();
 		} else {
 			// Destroy(gameObject);
 		}
