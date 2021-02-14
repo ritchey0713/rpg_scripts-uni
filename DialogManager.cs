@@ -20,6 +20,17 @@ public class DialogManager : MonoBehaviour {
 
 	private bool justStarted;
 
+	// for quests 
+
+	// string for quest name
+	private string questToMark;
+
+	// should the quest be completed at end of dialog?
+	private bool markQuestComplete;
+
+	// signifies the dialog has happened
+	private bool shouldMarkQuest;
+
     // Start is called before the first frame update
     void Start() {
 			instance = this;
@@ -40,6 +51,15 @@ public class DialogManager : MonoBehaviour {
 							nameText.text = "";
 							//PlayerController.instance.canMove = true;
 							GameManager.instance.dialogActive = false;
+
+							if(shouldMarkQuest){
+								shouldMarkQuest = false;
+								if(markQuestComplete){
+									QuestManager.instance.MarkQuestComplete(questToMark);
+								} else {
+									QuestManager.instance.MarkQuestIncomplete(questToMark);
+								}
+							}
 						} else {
 							CheckIfName();
 							dialogText.text = dialogLines[currentLine];
@@ -85,5 +105,12 @@ public class DialogManager : MonoBehaviour {
 			nameText.text = dialogLines[currentLine].Replace("n-", "");
 			currentLine++;
 		}
+	}
+
+	public void ShouldActivateQuestAtEnd(string questName, bool markComplete){
+		questToMark = questName;
+		markQuestComplete = markComplete;
+
+		shouldMarkQuest = true;
 	}
 }

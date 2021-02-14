@@ -10,6 +10,16 @@ public class DialogActivator : MonoBehaviour {
 	public bool isPerson = true;
 
 	private bool canActivate;
+
+	// for quests 
+	// should the dialog start the quest
+	public bool shouldActivateQuest;
+
+// string name for quest 
+	public string questToMark;
+
+// should it be complete after talking
+	public bool markComplete;
 	
 	void Start() {
 			
@@ -20,6 +30,7 @@ public class DialogActivator : MonoBehaviour {
 		if(canActivate && Input.GetButtonDown("Fire1") && !DialogManager.instance.dialogBox.activeInHierarchy && !DialogManager.instance.signBox.activeInHierarchy){
 
 			DialogManager.instance.ShowDialog(lines, isPerson);
+			DialogManager.instance.ShouldActivateQuestAtEnd(questToMark, markComplete);
 		}	
 	}
 
