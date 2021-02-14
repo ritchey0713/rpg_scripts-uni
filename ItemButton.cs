@@ -1,3 +1,5 @@
+
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -33,7 +35,7 @@ public class ItemButton : MonoBehaviour {
 			}
 
 			if(Shop.instance.sellMenu.activeInHierarchy) {
-				Shop.instance.SelectSellItem(GameManager.instance.GetItemDetails(GameManager.instance.itemsHeld[buttonValue]));
+					Shop.instance.SelectSellItem(GameManager.instance.GetItemDetails(GameManager.instance.itemsHeld[buttonValue]));
 			}
 		}
 	}

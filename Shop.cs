@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class Shop : MonoBehaviour {
 	// Start is called before the first frame update
@@ -58,11 +59,9 @@ public class Shop : MonoBehaviour {
 	}
 
 	public void OpenBuyMenu(){
-
-		buyItemButtons[0].Press();
-
 		buyMenu.SetActive(true); 
 		sellMenu.SetActive(false);
+		buyItemButtons[0].Press();
 
 		for(int i = 0; i < buyItemButtons.Length; i++){
 			buyItemButtons[i].buttonValue = i;
@@ -81,42 +80,84 @@ public class Shop : MonoBehaviour {
 	}
 
 	public void OpenSellMenu(){
-		sellItemButtons[0].Press();
+		GameManager.instance.SortItems();
+		
 		buyMenu.SetActive(false); 
 		sellMenu.SetActive(true);
+		sellItemButtons[0].Press();
 
-		GameManager.instance.SortItems();
+		ShowSellItems();
+		
+	}
 
-		for(int i = 0; i < sellItemButtons.Length; i++){
-			sellItemButtons[i].buttonValue = i;
-			if(GameManager.instance.itemsHeld[i] != ""){
-				//show button
-				sellItemButtons[i].buttonImage.gameObject.SetActive(true);
-				// access gamemanager => it tracks the items held and a ref to all items that we add to the game and the number of how many we have of each item
-				sellItemButtons[i].buttonImage.sprite = GameManager.instance.GetItemDetails(GameManager.instance.itemsHeld[i]).itemSprite;
-				sellItemButtons[i].amountText.text = GameManager.instance.numberOfItems[i].ToString();
-			} else {
-				// hide the button
-				sellItemButtons[i].buttonImage.gameObject.SetActive(false);
-				sellItemButtons[i].amountText.text = "";
+	private void ShowSellItems(){
+			for(int i = 0; i < sellItemButtons.Length; i++){
+				sellItemButtons[i].buttonValue = i;
+				if(GameManager.instance.itemsHeld[i] != ""){
+					//show button
+					sellItemButtons[i].buttonImage.gameObject.SetActive(true);
+					// access gamemanager => it tracks the items held and a ref to all items that we add to the game and the number of how many we have of each item
+					sellItemButtons[i].buttonImage.sprite = GameManager.instance.GetItemDetails(GameManager.instance.itemsHeld[i]).itemSprite;
+					sellItemButtons[i].amountText.text = GameManager.instance.numberOfItems[i].ToString();
+				} else {
+					// hide the button
+					sellItemButtons[i].buttonImage.gameObject.SetActive(false);
+					sellItemButtons[i].amountText.text = "";
+				}
 			}
-		}
+			if(!GameManager.instance.itemsHeld.Contains(selectedItem.itemName)){
+				sellItemName.text = "Select something to sell"; 
+			sellItemDescription.text = "";
+			sellItemValue.text = "";
+			}
+			else if (GameManager.instance.itemsHeld.Length < 1){
+				sellItemName.text = "You have nothing to sell...";
+			}
 	}
 
 	public void SelectBuyItem(Item itemToBuy){
-		selectedItem = itemToBuy; 
+		if(itemToBuy != null){
+			selectedItem = itemToBuy; 
 
-		buyItemName.text = selectedItem.itemName;
-		buyItemDescription.text = selectedItem.description;
-		buyItemValue.text = "Value: " + selectedItem.value + "g";
+			buyItemName.text = selectedItem.itemName;
+			buyItemDescription.text = selectedItem.description;
+			buyItemValue.text = "Value: " + selectedItem.value + "g";
+		}
 	}
 
 	public void SelectSellItem(Item itemToSell){
-		Debug.Log(itemToSell.value);
-		selectedItem = itemToSell;
+		if(itemToSell != null){
+			selectedItem = itemToSell;
 
-		sellItemName.text = selectedItem.itemName; 
-		sellItemDescription.text = selectedItem.description;
-		sellItemValue.text = "Value: " + Mathf.FloorToInt(selectedItem.value * .5f).ToString() + "g";
+			sellItemName.text = selectedItem.itemName; 
+			sellItemDescription.text = selectedItem.description;
+			sellItemValue.text = "Value: " + Mathf.FloorToInt(selectedItem.value * .5f).ToString() + "g";
+		}
+	}
+
+	public void BuyItem(){
+		if(selectedItem != null){
+			if(GameManager.instance.currentGold >= selectedItem.value){
+				GameManager.instance.currentGold -= selectedItem.value;
+				GameManager.instance.AddItem(selectedItem.itemName);
+			}
+			goldText.text = GameManager.instance.currentGold.ToString() + "g";
+		}
+	}
+
+	public void SellItem(){
+		
+		if(selectedItem != null && GameManager.instance.itemsHeld.Contains(selectedItem.itemName)){
+
+			GameManager.instance.RemoveItem(selectedItem.itemName);
+			GameManager.instance.currentGold += Mathf.FloorToInt(selectedItem.value * .5f);
+		} 
+		goldText.text = GameManager.instance.currentGold.ToString() + "g";
+
+		// selectedItem = null;
+		// sellItemName.text = "Thanks!!";
+		// sellItemDescription.text = "";
+		// sellItemValue.text = ""; 
+		ShowSellItems();
 	}
 }

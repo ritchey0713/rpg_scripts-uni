@@ -133,9 +133,8 @@ public class GameManager : MonoBehaviour {
 
 		if(foundItem){
 			numberOfItems[itemPosition]--;
-
 			if(numberOfItems[itemPosition] <= 0) {
-				itemsHeld[itemPosition] = "";
+				itemsHeld[itemPosition] = "";		
 			}
 			GameMenu.instance.ShowItems();
 		} else {
