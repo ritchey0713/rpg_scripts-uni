@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class GameMenu : MonoBehaviour {
 
@@ -163,6 +164,8 @@ public class GameMenu : MonoBehaviour {
 				itemButtons[i].amountText.text = "";
 			}
 		}
+		// by default select the first item in inv to display text and info for
+		SelectItem(GameManager.instance.GetItemDetails(GameManager.instance.itemsHeld[0]));
 	}
 
 	public void SelectItem(Item pressedItem){
@@ -183,6 +186,11 @@ public class GameMenu : MonoBehaviour {
 	public void DiscardItem(){
 		if(activeItem != null){
 			GameManager.instance.RemoveItem(activeItem.itemName);
+		}
+		if(!GameManager.instance.itemsHeld.Contains(activeItem.itemName)){
+			activeItem = null;
+			itemName.text = "Please select an item..";
+			itemDescription.text = "";
 		}
 	}
 
