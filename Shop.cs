@@ -22,6 +22,12 @@ public class Shop : MonoBehaviour {
 
 	public ItemButton[] sellItemButtons;
 
+	public Item selectedItem; 
+
+	public Text buyItemName, buyItemDescription, buyItemValue; 
+
+		public Text sellItemName, sellItemDescription, sellItemValue; 
+
 	void Start() {
 		instance = this;
 
@@ -73,6 +79,8 @@ public class Shop : MonoBehaviour {
 		buyMenu.SetActive(false); 
 		sellMenu.SetActive(true);
 
+		GameManager.instance.SortItems();
+
 		for(int i = 0; i < sellItemButtons.Length; i++){
 			sellItemButtons[i].buttonValue = i;
 			if(GameManager.instance.itemsHeld[i] != ""){
@@ -87,5 +95,21 @@ public class Shop : MonoBehaviour {
 				sellItemButtons[i].amountText.text = "";
 			}
 		}
+	}
+
+	public void SelectBuyItem(Item itemToBuy){
+		selectedItem = itemToBuy; 
+
+		buyItemName.text = selectedItem.itemName;
+		buyItemDescription.text = selectedItem.description;
+		buyItemValue.text = "Value: " + selectedItem.value;
+	}
+
+	public void SelectSellItem(Item itemToSell){
+		selectedItem = itemToSell;
+
+		sellItemName.text = selectedItem.itemName; 
+		sellItemDescription.text = selectedItem.description;
+		buyItemValue.text = "Value: " + selectedItem.value;
 	}
 }
