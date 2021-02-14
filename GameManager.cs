@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+// in new scene make sure this is active, shouldnt require the loader to do this => it loads a prefab and we cannt set quests that way without overwriting other quests in other scenes
 public class GameManager : MonoBehaviour {
 	// Start is called before the first frame update
 
@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour {
 
 			SortItems();
 		} else {
-			// Destroy(gameObject);
+			Destroy(gameObject);
 		}
 	}
 
