@@ -1,3 +1,5 @@
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -56,6 +58,9 @@ public class Shop : MonoBehaviour {
 	}
 
 	public void OpenBuyMenu(){
+
+		buyItemButtons[0].Press();
+
 		buyMenu.SetActive(true); 
 		sellMenu.SetActive(false);
 
@@ -76,6 +81,7 @@ public class Shop : MonoBehaviour {
 	}
 
 	public void OpenSellMenu(){
+		sellItemButtons[0].Press();
 		buyMenu.SetActive(false); 
 		sellMenu.SetActive(true);
 
@@ -102,14 +108,15 @@ public class Shop : MonoBehaviour {
 
 		buyItemName.text = selectedItem.itemName;
 		buyItemDescription.text = selectedItem.description;
-		buyItemValue.text = "Value: " + selectedItem.value;
+		buyItemValue.text = "Value: " + selectedItem.value + "g";
 	}
 
 	public void SelectSellItem(Item itemToSell){
+		Debug.Log(itemToSell.value);
 		selectedItem = itemToSell;
 
 		sellItemName.text = selectedItem.itemName; 
 		sellItemDescription.text = selectedItem.description;
-		buyItemValue.text = "Value: " + selectedItem.value;
+		sellItemValue.text = "Value: " + Mathf.FloorToInt(selectedItem.value * .5f).ToString() + "g";
 	}
 }
