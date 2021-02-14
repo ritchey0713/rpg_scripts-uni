@@ -1,0 +1,50 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class AudioManager : MonoBehaviour{
+	// Start is called before the first frame update
+
+	public AudioSource[] sfx;
+	public AudioSource[] bgm;
+
+	public static AudioManager instance;
+	void Start(){
+		// if(instance == null){
+		// 	instance = this;
+		// } else {
+		// 	// remove clones when scene loads
+		// 	Destroy(gameObject);
+		// }
+		if(instance == null){
+			instance = this; 
+			DontDestroyOnLoad(gameObject);
+		}
+	}
+
+	// Update is called once per frame
+	void Update(){
+
+	}
+
+	public void PlaySFX(int soundToPlay){
+		if(soundToPlay < sfx.Length){
+			sfx[soundToPlay].Play();
+		}
+	}
+
+	public void PlayBGM(int trackToPlay){
+		if(!bgm[trackToPlay].isPlaying){
+			StopMusic();
+			if(trackToPlay < bgm.Length){
+				bgm[trackToPlay].Play();
+			}
+		}
+	}
+
+	public void StopMusic(){
+		for(int i = 0; i < bgm.Length; i++){
+			bgm[i].Stop();
+		}
+	}
+}

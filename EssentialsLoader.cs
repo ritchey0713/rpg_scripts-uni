@@ -8,6 +8,7 @@ public class EssentialsLoader : MonoBehaviour {
 	public GameObject UIScreen;
 	public GameObject player;
 	public GameObject gameMan;
+	public GameObject AudioMan;
 	// Start is called before the first frame update
 	void Awake() {
 		if(UIFade.instance == null) {
@@ -25,6 +26,10 @@ public class EssentialsLoader : MonoBehaviour {
 
 		if(GameManager.instance == null){
 			Instantiate(gameMan);
+		}
+
+		if(AudioManager.instance == null){
+			Instantiate(AudioMan);
 		}
 	}
 

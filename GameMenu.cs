@@ -48,7 +48,7 @@ public class GameMenu : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update() {
-		if(Input.GetButtonDown("Fire2"))
+		if(Input.GetButtonDown("Fire2")){
 			if(theMenu.activeInHierarchy){
 
 				CloseMenu();
@@ -60,7 +60,9 @@ public class GameMenu : MonoBehaviour {
 				GameManager.instance.gameMenuOpen = true;
 
 			}
-		}	
+			AudioManager.instance.PlaySFX(5);
+		}
+	}	
 
 	public void UpdateMainStats(){
 		// get most up to date stats from the game manager
@@ -213,6 +215,15 @@ public class GameMenu : MonoBehaviour {
 	public void UseItem(int selectedChar){
 		activeItem.Use(selectedChar);
 		CloseItemCharChoice();
+	}
+
+	public void SaveGame(){
+		GameManager.instance.SaveData();
+		QuestManager.instance.SaveQuestData();
+	}
+
+	public void PlayButtonSound(){
+		AudioManager.instance.PlaySFX(4);
 	}
 
 }
